@@ -7,6 +7,7 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
         case ADD_ITEM:
+            state.itemList = [...state.itemList, action.item]
             return {
                 itemList: [...state.itemList, action.item]
             };
@@ -16,11 +17,17 @@ const reducer = (state = defaultState, action) => {
             })
             return state.itemList;
         case FINISH_ITEM:
-            for (let i = 0; i < state.itemList.length; i++) {
-                if (i === action.index) {
-                    state.itemList[i].isDone = !state.itemList[i].isDone
+            // console.log('actionIndex', action.index)
+            state.itemList.map((item) => {
+                if (item.id === action.index) {
+                    return item.status = !item.status
                 }
-            }
+            })
+            // for (let i = 0; i < state.itemList.length; i++) {
+            //     if (i === action.index) {
+            //         state.itemList[i].status = !state.itemList[i].status
+            //     }
+            // }
             return {
                 itemList: [...state.itemList]
             };

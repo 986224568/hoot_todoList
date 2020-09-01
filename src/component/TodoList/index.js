@@ -4,7 +4,7 @@ import Api from '../../api/Api'
 import HeaderTitle from "../HeaderTitle";
 import InputItem from "../InputItem";
 import {AppContext} from "../../App";
-import {DELETE_ITEM, FETCH_ITEM, INIT_ITEM} from "../../store/actionTypes";
+import {ADD_ITEM, DELETE_ITEM, FETCH_ITEM, FINISH_ITEM, INIT_ITEM} from "../../store/actionTypes";
 
 export default function TodoList() {
     // constructor(props) {
@@ -40,7 +40,8 @@ export default function TodoList() {
 
     async function handleAddItem(inputValue) {
         if (inputValue !== "") {
-            await Api.addTodo({content: inputValue, status: false})
+            //await Api.addTodo({content: inputValue, status: false})
+            dispatch({type: ADD_ITEM, item : {id: 2, content: inputValue, status: false}})
             initTodoList();
         } else {
             alert("No Allow Empty");
@@ -65,7 +66,8 @@ export default function TodoList() {
     // };
 
     async function handleFinishItem(id, status) {
-        await Api.updateTodo(id, status);
+        //await Api.updateTodo(id, status);
+        dispatch({type: FINISH_ITEM, index: id})
         initTodoList();
     }
 
